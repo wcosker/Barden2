@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// This file is the basic Singleton Game Controller, there should not be much in here except for general settings values, saving and loading data, and a function for scene switching
+/// </summary>
 public class GameController : MonoBehaviour
 {
     //constant variable to contain the save file path for easy access inside of this script
@@ -15,6 +18,7 @@ public class GameController : MonoBehaviour
 
     //these are potential saved values
     //public AudioMixer mixer;
+
 
     //on awake, check for controller obj, if none exist stay, otherwise Destroy()
     void Awake()
@@ -57,7 +61,8 @@ public class GameController : MonoBehaviour
     public void Load()
     {
         string path = Application.persistentDataPath + SAVEFILEPATH;
-        if (File.Exists(path))//if file is found input data into the local DDOL "control" object
+        //if file is found input data into the local singleton control object
+        if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
@@ -93,8 +98,9 @@ public class GameController : MonoBehaviour
     }
 }
 
+//raw player data held here
 [Serializable]
-class GameData //THIS HOLDS RAW PLAYER DATA
+class GameData
 {
 
 }
