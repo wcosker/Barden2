@@ -48,6 +48,10 @@ public class PlayerMovement : MonoBehaviour
                 //increase allowed finger length over time for UX purposes
                 tempFL = 10f;
             }
+            else if (rb.velocity.x < 0.01f && rb.velocity.y < 0.01f)
+            {
+                rb.velocity = Vector2.zero;
+            }
             //once movement is completed, reset FINGERLENGTH value and slow down
             else
             {

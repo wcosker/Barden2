@@ -144,3 +144,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterMe: {fileID: 9049157319791332141, guid: 2ce717bf2e456354caf65db21dde2b29, type: 3}
+  flowerHpBar: {fileID: 1590449597851713381, guid: 46e5f64a7a8328c42a7d17f27f0f07cf,
+    type: 3}

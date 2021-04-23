@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class Flower : MonoBehaviour
 {
-    private float timeTilDeath = 20f;
+    private const float FLOWERHEALTH = 20f;
+    private float currFlowerHp;
     private bool isWatering = false;
 
     [Header("Player hits this button prefab to water flower")]
@@ -17,12 +18,15 @@ public class Flower : MonoBehaviour
     //button action for referring to "addTimeToFlower"
     UnityAction action1;
 
+    public GameObject flowerHpBar;
+    private Slider flowerHp;
+
     /// <summary>
     /// Button is instantiated here in the correct location with the correct onClick event associated with it, and then is immediately disabled
     /// The location is calculated by getting the screen space that this flower is located on
     /// The button is then enabled when the players collider enters the Flowers
     /// </summary>
-    private void Start()
+    private void Awake()
     {
         Canvas canvas = FindObjectOfType<Canvas>();
         RectTransform rec = canvas.GetComponent<RectTransform>();
@@ -45,16 +49,36 @@ public class Flower : MonoBehaviour
         tempButton.GetComponent<RectTransform>().localPosition = canvasPos;
         tempButton.GetComponent<Button>().onClick.AddListener(action1);
         tempButton.SetActive(false);
+
+        //Grabs the flower hp bar at top of screen
+        flowerHpBar = GameObject.FindWithTag("FlowerHPBar");
+        flowerHp = flowerHpBar.GetComponent<Slider>();
+
+        //sets flower time til death equal to non-changing variable
+        currFlowerHp = FLOWERHEALTH;
+    }
+
+    private void Start()
+    {
+        flowerHpBar.SetActive(false);
     }
 
     private void Update()
     {
-        timeTilDeath -= Time.deltaTime;
+        currFlowerHp -= Time.deltaTime;
+        if (isWatering)
+        {
+            flowerHp.value = currFlowerHp / FLOWERHEALTH;
+        }
     }
 
     public void addTimeToFlower()
     {
-        timeTilDeath += 5f;
+        //if watering doesn't go over, can change this
+        if (currFlowerHp <= FLOWERHEALTH - 5)
+        {
+            currFlowerHp += 5f;
+        }
     }
 
     //if player touches flower, then show button for watering
@@ -62,8 +86,9 @@ public class Flower : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            isWatering = true;
             tempButton.SetActive(true);
+            flowerHpBar.SetActive(true);
+            isWatering = true;
         }
     }
 
@@ -73,6 +98,7 @@ public class Flower : MonoBehaviour
         if (collision.tag == "Player" && isWatering)
         {
             tempButton.SetActive(false);
+            flowerHpBar.SetActive(false);
             isWatering = false;
         }
     }
