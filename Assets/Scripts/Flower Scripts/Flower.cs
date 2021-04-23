@@ -21,6 +21,9 @@ public class Flower : MonoBehaviour
     public GameObject flowerHpBar;
     private Slider flowerHp;
 
+    //PLAYER'S CURRENT WATER BUCKET
+    private WaterBucket playerWater;
+
     /// <summary>
     /// Button is instantiated here in the correct location with the correct onClick event associated with it, and then is immediately disabled
     /// The location is calculated by getting the screen space that this flower is located on
@@ -60,6 +63,7 @@ public class Flower : MonoBehaviour
 
     private void Start()
     {
+        playerWater = GameObject.FindGameObjectWithTag("Player").GetComponent<WaterBucket>();
         flowerHpBar.SetActive(false);
     }
 
@@ -74,10 +78,13 @@ public class Flower : MonoBehaviour
 
     public void addTimeToFlower()
     {
-        //if watering doesn't go over, can change this
-        if (currFlowerHp <= FLOWERHEALTH - 5)
+        //if waterBucket has water in it and it doesn't go over max val
+        if (playerWater.currentBucket > 0)
         {
+            //decrease watering bucket count by 1
+            playerWater.waterFlower();
             currFlowerHp += 5f;
+            Debug.Log(currFlowerHp);
         }
     }
 
