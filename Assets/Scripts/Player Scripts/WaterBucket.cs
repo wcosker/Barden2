@@ -18,4 +18,9 @@ public class WaterBucket : MonoBehaviour
     {
         currentBucket--;
     }
+
+    public void fillBucket()
+    {
+        currentBucket++;
+    }
 }

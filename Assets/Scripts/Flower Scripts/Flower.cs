@@ -81,10 +81,14 @@ public class Flower : MonoBehaviour
         //if waterBucket has water in it and it doesn't go over max val
         if (playerWater.currentBucket > 0)
         {
-            //decrease watering bucket count by 1
+            // if the watering is going to go higher than the max HP :)
+            if (currFlowerHp + 5 > FLOWERHEALTH) currFlowerHp = FLOWERHEALTH;
+            else
+            {
+                //decrease watering bucket count by 1
+                currFlowerHp += 5f;
+            }
             playerWater.waterFlower();
-            currFlowerHp += 5f;
-            Debug.Log(currFlowerHp);
         }
     }
 
@@ -96,6 +100,7 @@ public class Flower : MonoBehaviour
             tempButton.SetActive(true);
             flowerHpBar.SetActive(true);
             isWatering = true;
+            GameObject.FindWithTag("ImageHP").GetComponent<Image>().sprite = GetComponent<SpriteRenderer>().sprite;
         }
     }
 
