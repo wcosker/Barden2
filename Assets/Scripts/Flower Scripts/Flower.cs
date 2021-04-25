@@ -74,6 +74,19 @@ public class Flower : MonoBehaviour
         {
             flowerHp.value = currFlowerHp / FLOWERHEALTH;
         }
+        // This is for killing the flower, commenting it out to test other things
+/*        if (currFlowerHp < 0)
+        {
+            currFlowerHp += 100;
+            StartCoroutine(killFlower());
+        }*/
+    }
+
+    private IEnumerator killFlower()
+    {
+        //WAIT FOR ANIMATION.LENGTH
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
     }
 
     public void addTimeToFlower()

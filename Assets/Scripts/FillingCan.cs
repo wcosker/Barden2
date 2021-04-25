@@ -16,7 +16,7 @@ public class FillingCan : MonoBehaviour
 
     private WaterBucket playerWater;
 
-    // Start is called before the first frame update
+    private int ranSquare;
     void Start()
     {
         Canvas canvas = FindObjectOfType<Canvas>();
@@ -46,6 +46,11 @@ public class FillingCan : MonoBehaviour
 
     public void addWaterToBucket()
     {
+        //if player is about to add water to bucket... then move button
+        if (playerWater.fillerUp == 2)
+        {
+            moveButtonRandomly();
+        }
         playerWater.fillBucket();
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -53,13 +58,42 @@ public class FillingCan : MonoBehaviour
         if (collision.tag == "Player")
         {
             tempButton.SetActive(true);
+            moveButtonRandomly();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
+            playerWater.resetFilling();
             tempButton.SetActive(false);
+        }
+    }
+
+    private void moveButtonRandomly()
+    {
+        int prevRan = ranSquare;
+        ranSquare = Random.Range(1, 5);
+        //this check is to make sure button doesn't move to same location when moving around screen
+        //kinda stupid lol but fuck you
+        if (prevRan == ranSquare && prevRan == 4) ranSquare--;
+        else if (prevRan == ranSquare && prevRan == 1) ranSquare++;
+        else if (prevRan == ranSquare) ranSquare += Random.Range(0, 2) * 2 - 1;
+
+        switch (ranSquare)
+        {
+            case 1:
+                tempButton.GetComponent<RectTransform>().position = new Vector3(60, 234, 0);
+                break;
+            case 2:
+                tempButton.GetComponent<RectTransform>().position = new Vector3(60, 60, 0);
+                break;
+            case 3:
+                tempButton.GetComponent<RectTransform>().position = new Vector3(234, 60, 0);
+                break;
+            case 4:
+                tempButton.GetComponent<RectTransform>().position = new Vector3(234, 234, 0);
+                break;
         }
     }
 }
