@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour
 
     //these are potential saved values
     //public AudioMixer mixer;
+    [HideInInspector]
+    public float moveSpeed = 5f;
 
 
     //on awake, check for controller obj, if none exist stay, otherwise Destroy()
@@ -49,11 +51,10 @@ public class GameController : MonoBehaviour
         FileStream stream = new FileStream(path, FileMode.Create);
         GameData data = new GameData();
 
-        formatter.Serialize(stream, data);
-
         //example of saving data
-        //data.maxUses = maxUses;
-        
+        data.moveSpeed = moveSpeed;
+
+        formatter.Serialize(stream, data);
         stream.Close();
     }
 
@@ -61,6 +62,7 @@ public class GameController : MonoBehaviour
     public void Load()
     {
         string path = Application.persistentDataPath + SAVEFILEPATH;
+        Debug.Log(path);
         //if file is found input data into the local singleton control object
         if (File.Exists(path))
         {
@@ -72,7 +74,7 @@ public class GameController : MonoBehaviour
             stream.Close();
 
             //example of loading data
-            //maxUses = data.maxUses;
+            moveSpeed = data.moveSpeed;
         }
         else
         {
@@ -92,7 +94,7 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetFloat("fxVol", volume);
     }*/
 
-    public void goToNewScene(String sceneName)
+    public void goToNewScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
@@ -102,5 +104,5 @@ public class GameController : MonoBehaviour
 [Serializable]
 class GameData
 {
-
+    public float moveSpeed;
 }

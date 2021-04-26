@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     //direction player goes in pertaining to finger location
     private Vector3 dir;
-    private float moveSpeed = 8f;
+    private float moveSpeed;
 
     //finger position on screen
     private Vector3 touchPos;
@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        moveSpeed = GameController.control.moveSpeed;
+
         tempFL = FINGERLENGTH;
         rb = GetComponent<Rigidbody2D>();
     }
@@ -64,5 +66,19 @@ public class PlayerMovement : MonoBehaviour
             tempFL = FINGERLENGTH;
             rb.velocity = rb.velocity * 0.98f;
         }
+    }
+
+    ///<summary>
+    ///Helper functions down here for flower attacks/slows/effects on player
+    /// </summary>
+
+    public void slowPlayer()
+    {
+        moveSpeed = 2;
+    }
+
+    public void returnSpeed()
+    {
+        moveSpeed = GameController.control.moveSpeed;
     }
 }

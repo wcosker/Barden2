@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2622487076034562901}
   m_Layer: 0
   m_Name: testEnemy
-  m_TagString: Untagged
+  m_TagString: Flower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
