@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     //constant variable to contain the save file path for easy access inside of this script
-    private const String SAVEFILEPATH = "/playerData.txt";
+    private const string SAVEFILEPATH = "/playerData.txt";
 
     //this is the MAIN STATIC control object to be called by other scripts
     public static GameController control;
@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     //these are potential saved values
     //public AudioMixer mixer;
     [HideInInspector]
-    public float moveSpeed = 5f;
+    public float moveSpeed;
 
 
     //on awake, check for controller obj, if none exist stay, otherwise Destroy()

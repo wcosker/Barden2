@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 touchPos;
 
     //distance allowed between finger and char object
-    private const float FINGERLENGTH = 2.5f;
+    private const float FINGERLENGTH = 1.5f;
     private float tempFL;
 
     void Start()
@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void slowPlayer()
     {
-        moveSpeed = 2;
+        moveSpeed /= 4;
     }
 
     public void returnSpeed()

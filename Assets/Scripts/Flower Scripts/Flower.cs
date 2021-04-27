@@ -105,6 +105,11 @@ public class Flower : MonoBehaviour
         }
     }
 
+    public void resetFlowerTime()
+    {
+        currFlowerHp = FLOWERHEALTH;
+    }
+
     //if player touches flower, then show button for watering
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -22,6 +22,6 @@ public class SlowFlower : MonoBehaviour
 
     private void Update()
     {
-        
+        transform.localScale = new Vector3(7f + Mathf.Sin(Time.time)/2, 7f + Mathf.Sin(Time.time)/2, 7f + Mathf.Sin(Time.time)/2);
     }
 }
