@@ -32,33 +32,22 @@ public class ClickableFlower : MonoBehaviour
         upArrowInstantiate.GetComponent<RectTransform>().localPosition = canvasPos;
         upArrowInstantiate.SetActive(false);
     }
+
     //when flower is clicked, check to see if script is enabled
     //if script is enabled, disable all of the flowers clickable flower components and reset THIS flowers time
     private void OnMouseDown()
     {
         //if flower is not clickable, return
-        if (!isClickable)return;
+        if (!isClickable) return;
         //if not, reset the flower clicked times
         GetComponent<Flower>().resetFlowerTime();
 
-        //for each flower, deactivate clickable
-        GameObject[] flowers;
-        flowers = GameObject.FindGameObjectsWithTag("Flower");
-        foreach (GameObject flower in flowers)
-        {
-            flower.GetComponent<ClickableFlower>().setClickableFalse();
-        }
+        GameController.control.setFlowersClickable(false);
     }
 
-    public void setClickableTrue()
+    public void setClickable(bool val)
     {
-        isClickable = true;
-        upArrowInstantiate.SetActive(true);
-    }
-
-    public void setClickableFalse()
-    {
-        isClickable = false;
-        upArrowInstantiate.SetActive(false);
+        isClickable = val;
+        upArrowInstantiate.SetActive(val);
     }
 }

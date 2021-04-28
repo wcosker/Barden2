@@ -82,6 +82,16 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void setFlowersClickable(bool val)
+    {
+        GameObject[] flowers;
+        flowers = GameObject.FindGameObjectsWithTag("Flower");
+        foreach (GameObject flower in flowers)
+        {
+            flower.GetComponent<ClickableFlower>().setClickable(val);
+        }
+    }
+
 /*    public void musicVolume(float volume)
     {
         mixer.SetFloat("musicVol", volume);

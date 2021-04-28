@@ -43,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
             //if the distance between the player and finger is enough then move the player object
             if (Vector3.Distance(touchPos, transform.position) < tempFL)
             {
+                /// TODO: IF FLOWER IS CLICKABLE DEACTIVATE IT HERE
+
                 dir = (touchPos - transform.position);
                 //create velocity towards finger
                 rb.velocity = new Vector2(dir.x, dir.y) * moveSpeed;
