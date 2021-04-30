@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     ///<summary>
     ///Helper functions down here for flower attacks/slows/effects on player
-    /// </summary>
+    ///</summary>
 
     public void slowPlayer()
     {

@@ -8,7 +8,7 @@ public class FillingCan : MonoBehaviour
 {
     [Header("Player hits this button prefab to fill up bucket")]
     [SerializeField]
-    private GameObject waterMe;
+    private GameObject waterMe = null;
     private GameObject tempButton;
 
     //button action for referring to "addTimeToFlower"
@@ -20,24 +20,12 @@ public class FillingCan : MonoBehaviour
     void Start()
     {
         Canvas canvas = FindObjectOfType<Canvas>();
-        RectTransform rec = canvas.GetComponent<RectTransform>();
-
-        // Offset position above object bbox (in world space) (the 1f is the offset)
-        float offsetPosY = transform.position.y + 1f;
-        Vector3 offsetPos = new Vector3(transform.position.x, offsetPosY, transform.position.z);
-
-        // Calculate *screen* position (note, not a canvas/recttransform position)
-        Vector2 screenPoint = Camera.main.WorldToScreenPoint(offsetPos);
-        Vector2 canvasPos;
-        // Convert screen position to Canvas / RectTransform space <- leave camera null if Screen Space Overlay
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(rec, screenPoint, null, out canvasPos);
 
         //this sets button onClick() function to be THIS FLOWER specifically
         action1 = () => { addWaterToBucket(); };
         //instantiate button and then immeditaley disable it so that you dont have to instantiate and destroy constantly
         tempButton = Instantiate(waterMe);
         tempButton.transform.SetParent(canvas.transform, false);
-        tempButton.GetComponent<RectTransform>().localPosition = canvasPos;
         tempButton.GetComponent<Button>().onClick.AddListener(action1);
         tempButton.SetActive(false);
 

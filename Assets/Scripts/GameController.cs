@@ -17,9 +17,11 @@ public class GameController : MonoBehaviour
     public static GameController control;
 
     //these are potential saved values
-    //public AudioMixer mixer;
+    public AudioMixer mixer;
     [HideInInspector]
     public float moveSpeed;
+    public int waterAllButton = 3;
+    public int waterOneButton = 6;
 
 
     //on awake, check for controller obj, if none exist stay, otherwise Destroy()
@@ -82,14 +84,9 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void setFlowersClickable(bool val)
+    public GameObject[] getFlowers()
     {
-        GameObject[] flowers;
-        flowers = GameObject.FindGameObjectsWithTag("Flower");
-        foreach (GameObject flower in flowers)
-        {
-            flower.GetComponent<ClickableFlower>().setClickable(val);
-        }
+        return GameObject.FindGameObjectsWithTag("Flower"); ;
     }
 
 /*    public void musicVolume(float volume)

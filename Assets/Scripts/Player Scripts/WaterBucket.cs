@@ -38,4 +38,10 @@ public class WaterBucket : MonoBehaviour
     {
         fillerUp = 0;
     }
+
+    public void loseWater()
+    {
+        //play sound/animation?
+        currentBucket--;
+    }
 }

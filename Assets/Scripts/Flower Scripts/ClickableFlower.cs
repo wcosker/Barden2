@@ -5,7 +5,7 @@ using UnityEngine;
 public class ClickableFlower : MonoBehaviour
 {
     [SerializeField]
-    private GameObject upArrow;
+    private GameObject upArrow = null;
     [HideInInspector]
     private GameObject upArrowInstantiate;
 
@@ -42,7 +42,10 @@ public class ClickableFlower : MonoBehaviour
         //if not, reset the flower clicked times
         GetComponent<Flower>().resetFlowerTime();
 
-        GameController.control.setFlowersClickable(false);
+        foreach(GameObject flower in GameController.control.getFlowers())
+        {
+            flower.GetComponent<ClickableFlower>().setClickable(false);
+        }
     }
 
     public void setClickable(bool val)

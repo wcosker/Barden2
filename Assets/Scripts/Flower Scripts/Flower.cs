@@ -12,7 +12,7 @@ public class Flower : MonoBehaviour
 
     [Header("Player hits this button prefab to water flower")]
     [SerializeField]
-    private GameObject waterMe;
+    private GameObject waterMe = null;
     private GameObject tempButton;
 
     //button action for referring to "addTimeToFlower"
@@ -23,6 +23,12 @@ public class Flower : MonoBehaviour
 
     //PLAYER'S CURRENT WATER BUCKET
     private WaterBucket playerWater;
+
+    //sprite for when flower is halfway dead
+    [SerializeField]
+    private Sprite dyingSprite = null;
+    private Sprite healthySprite;
+    private SpriteRenderer spriteRen;
 
     /// <summary>
     /// Button is instantiated here in the correct location with the correct onClick event associated with it, and then is immediately disabled
@@ -59,6 +65,9 @@ public class Flower : MonoBehaviour
 
         //sets flower time til death equal to non-changing variable
         currFlowerHp = FLOWERHEALTH;
+
+        spriteRen = GetComponent<SpriteRenderer>();
+        healthySprite = spriteRen.sprite;
     }
 
     private void Start()
@@ -73,6 +82,14 @@ public class Flower : MonoBehaviour
         if (isWatering)
         {
             flowerHp.value = currFlowerHp / FLOWERHEALTH;
+        }
+        if (currFlowerHp < FLOWERHEALTH/2 && spriteRen.sprite != dyingSprite)
+        {
+            spriteRen.sprite = dyingSprite;
+        }
+        else if (currFlowerHp > FLOWERHEALTH / 2 && spriteRen.sprite == dyingSprite)
+        {
+            spriteRen.sprite = healthySprite;
         }
         // This is for killing the flower, commenting it out to test other things
 /*        if (currFlowerHp < 0)
@@ -104,9 +121,10 @@ public class Flower : MonoBehaviour
             playerWater.waterFlower();
         }
     }
-
+    //instantiate particle generator and have it destroy after a certain amount of time
     public void resetFlowerTime()
     {
+        GetComponent<ParticleSystem>().Play();
         currFlowerHp = FLOWERHEALTH;
     }
 
@@ -118,7 +136,7 @@ public class Flower : MonoBehaviour
             tempButton.SetActive(true);
             flowerHpBar.SetActive(true);
             isWatering = true;
-            GameObject.FindWithTag("ImageHP").GetComponent<Image>().sprite = GetComponent<SpriteRenderer>().sprite;
+            GameObject.FindWithTag("ImageHP").GetComponent<Image>().sprite = healthySprite;
         }
     }
 
